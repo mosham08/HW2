@@ -2,8 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/HW2.dir/main.cpp.obj"
   "HW2.exe"
   "HW2.exe.manifest"
-  "HW2.lib"
   "HW2.pdb"
+  "libHW2.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

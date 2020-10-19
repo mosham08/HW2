@@ -1,3 +1,3 @@
-C:/Users/Mohammad Abdellatif/Documents/CSE 3320 Operating Systems/HW2/cmake-build-debug/CMakeFiles/HW2.dir
-C:/Users/Mohammad Abdellatif/Documents/CSE 3320 Operating Systems/HW2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Mohammad Abdellatif/Documents/CSE 3320 Operating Systems/HW2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Temp/moe/HW2/cmake-build-debug/CMakeFiles/HW2.dir
+C:/Temp/moe/HW2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Temp/moe/HW2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

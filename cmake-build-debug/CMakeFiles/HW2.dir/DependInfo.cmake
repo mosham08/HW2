@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Mohammad Abdellatif/Documents/CSE 3320 Operating Systems/HW2/main.cpp" "C:/Users/Mohammad Abdellatif/Documents/CSE 3320 Operating Systems/HW2/cmake-build-debug/CMakeFiles/HW2.dir/main.cpp.obj"
+  "C:/Temp/moe/HW2/main.cpp" "C:/Temp/moe/HW2/cmake-build-debug/CMakeFiles/HW2.dir/main.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "MSVC")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

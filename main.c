@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-#define MAX 10
-
+//#define MAX 1000
+int MAX = 1000;
 struct Earthquakes {
     char time[100];
     char latitude[20];
@@ -23,6 +24,11 @@ int read_file(char *fileName) {
         fprintf(stderr, "Unable to open file!\n");
         return -1;
     }
+// instrumentaion start
+    time_t t;
+    t = time(NULL);
+    printf("Driver Time: %s\n", ctime(&t));
+    // instrumentation
 
     fprintf(stderr, "The file was opened !\n");
     fgets(line, line_size, file);
@@ -51,13 +57,34 @@ int read_file(char *fileName) {
         strcpy(earthquakes[index]->mag, token);
 
         // print the structure
-        printEarthquake(earthquakes[index]);
+//        printEarthquake(earthquakes[index]);
         index++;
     }
     free(line);
 
     printf("number of lines printed: %d\n", index);
+//    for (int i1 = 0; i1 < MAX; i1++) {
+//        printEarthquake(earthquakes[i1]);
+//    }
 
+    struct Earthquakes *temp;
+    for (int i = 1; i < MAX; i++) {
+        for (int j = 0; j < MAX - i; j++) {
+            if (strcmp(earthquakes[j]->latitude, earthquakes[j + 1]->latitude) > 0) {
+                temp = earthquakes[j];
+                earthquakes[j] = earthquakes[j + 1];
+                earthquakes[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("After: number of lines printed: %d\n", index);
+//    for (int i1 = 0; i1 < MAX; i1++) {
+//        printEarthquake(earthquakes[i1]);
+//    }
+
+    t = time(NULL);
+    printf("Driver Time again: %s\n", ctime(&t));
     return 1;
 }
 
@@ -88,11 +115,35 @@ void printEarthquake(struct Earthquakes *earthquakes) {
 //    }
 //}
 
-int main() {
-    fprintf(stderr, "In main!\n");
+int main(int arcg, char *argv[]) {
 
-    char *earthquake_filename = "./all_month.csv";
+    for (int i = 0; i < arcg; i++) {
+        printf("%s ", argv[i]);
+    }
+    printf("%s\n", "");
+    // to store execution time of code
+    double time_spent = 0.0;
+    pid_t p, pp;
+    clock_t begin = clock();
+
+    fprintf(stderr, "In main! \n");
+    p = getpid();
+    pp = getppid();
+    printf("main.c: Util PID: %d   PPID: %d \n", p, pp);
+
+    char *earthquake_filename = argv[0];// "./all_month.csv";
+    MAX = atoi(argv[1]);
     read_file(earthquake_filename);
 
-    return 0;
+    clock_t end = clock();
+
+    // calculate elapsed time by finding difference (end - begin) and
+    // dividing the difference by CLOCKS_PER_SEC to convert to seconds
+    time_spent += (double) (end - begin) / CLOCKS_PER_SEC;
+
+    printf("\nmain.c: Time elpased is %f seconds\n", time_spent);
+    printf("main.c: Begin: %ld\n", begin);
+    printf("main.c: End: %ld\n", end);
+
+    exit(0);
 }

@@ -10,7 +10,7 @@
 #include <sys/shm.h>
 #include <unistd.h>
 
-#define MAX 10000
+#define MAX 20000
 #define  NOT_READY  -1
 #define  FILLED     0
 #define  TAKEN      1
@@ -164,14 +164,15 @@ int main() {
     ShmPTR->status = NOT_READY;
     ShmPTRSplit2->status = NOT_READY;
 
-    int maxLimit1 = 5000;
-    int maxLimit2 = 10000;
+    int maxLimit1 = 10000;
+    int maxLimit2 = 20000;
 
     // get the data into rhe shared memory
     for (int k = 0; k < maxLimit1; k++) {
         ShmPTR->earthquakes1[k] = earthquakes[k];
 //        strcpy(ShmPTR->earthquakes1[k]->time, "split#1");
     }
+    printf("Child read: 1 %s\n", "");
     int index = 0;
     for (int k = maxLimit1; k < maxLimit2; k++) {
         int currentIndex = index;
@@ -199,10 +200,6 @@ int main() {
             printf("\nArray after merging\n");
             printf("\nStoring merged data into csv file\n");
             saveSortedData(earthquakes1, maxLimit2);
-//            for (int i = 0; i < 20; i++) {
-//                printEarthquake(earthquakes1[i]);
-//            }
-
         }
     } else {
         printf("\nNot a child process: printing\n");

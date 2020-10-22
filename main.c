@@ -14,8 +14,8 @@ struct Earthquakes {
     char mag[20];
 };
 
-int read_file(char *fileName) {
-    fprintf(stderr, "Try to open file!\n");
+int read_file(char *fileName, char *processname) {
+//    fprintf(stderr, "Try to open file!\n");
     FILE *file = fopen(fileName, "r");
     const size_t line_size = 2049;
     char *line = malloc(line_size);
@@ -27,18 +27,18 @@ int read_file(char *fileName) {
 // instrumentaion start
     time_t t;
     t = time(NULL);
-    printf("Driver Time: %s\n", ctime(&t));
-    // instrumentation
-
-    fprintf(stderr, "The file was opened !\n");
+//    printf("Driver Time: %s\n", ctime(&t));
+//    // instrumentation
+//
+//    fprintf(stderr, "The file was opened !\n");
     fgets(line, line_size, file);
 
     struct Earthquakes *earthquakes[MAX];
 
-    fprintf(stderr, "The file was opened !\n");
+//    fprintf(stderr, "The file was opened !\n");
     fgets(line, line_size, file);
     int index = 0;
-    fprintf(stderr, "Reading one line at a time from the file!\n");
+//    fprintf(stderr, "Reading one line at a time from the file!\n");
     while (fgets(line, line_size, file) && (index < MAX)) {
         // allocate mem for the earthquakes structure
         earthquakes[index] = (struct Earthquakes *) malloc(sizeof(struct Earthquakes));
@@ -58,11 +58,12 @@ int read_file(char *fileName) {
 
         // print the structure
 //        printEarthquake(earthquakes[index]);
+        //printf("Executing line: %-12d in\n", index);
         index++;
     }
     free(line);
 
-    printf("number of lines printed: %d\n", index);
+//    printf("number of lines printed: %d\n", index);processname
 //    for (int i1 = 0; i1 < MAX; i1++) {
 //        printEarthquake(earthquakes[i1]);
 //    }
@@ -78,13 +79,13 @@ int read_file(char *fileName) {
         }
     }
 
-    printf("After: number of lines printed: %d\n", index);
+//    printf("After: number of lines printed: %d\n", index);
 //    for (int i1 = 0; i1 < MAX; i1++) {
 //        printEarthquake(earthquakes[i1]);
 //    }
 
     t = time(NULL);
-    printf("Driver Time again: %s\n", ctime(&t));
+//    printf("Driver Time again: %s\n", ctime(&t));
     return 1;
 }
 
@@ -117,23 +118,14 @@ void printEarthquake(struct Earthquakes *earthquakes) {
 
 int main(int arcg, char *argv[]) {
 
-    for (int i = 0; i < arcg; i++) {
-        printf("%s ", argv[i]);
-    }
-    printf("%s\n", "");
-    // to store execution time of code
+    // to store execution time of codecreate_shared_memory
     double time_spent = 0.0;
-    pid_t p, pp;
     clock_t begin = clock();
 
-    fprintf(stderr, "In main! \n");
-    p = getpid();
-    pp = getppid();
-    printf("main.c: Util PID: %d   PPID: %d \n", p, pp);
-
+//    fprintf(stderr, "In main! \n");
     char *earthquake_filename = argv[0];// "./all_month.csv";
     MAX = atoi(argv[1]);
-    read_file(earthquake_filename);
+    read_file(earthquake_filename, argv[2]);
 
     clock_t end = clock();
 
@@ -141,9 +133,12 @@ int main(int arcg, char *argv[]) {
     // dividing the difference by CLOCKS_PER_SEC to convert to seconds
     time_spent += (double) (end - begin) / CLOCKS_PER_SEC;
 
-    printf("\nmain.c: Time elpased is %f seconds\n", time_spent);
-    printf("main.c: Begin: %ld\n", begin);
-    printf("main.c: End: %ld\n", end);
+
+
+    printf("\n%s: Time elpased is %f seconds\n", argv[2], time_spent);
+//    printf("main.c: Begin: %ld\n", begin);
+//    printf("main.c: End: %ld\n", end);
+
 
     exit(0);
 }

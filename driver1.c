@@ -17,8 +17,8 @@ int main(void) {
 //
     char* argv[MAX_ARGS];
     argv[0] = "./all_month.csv";    // the file name
-    argv[1] = "10000";                // size of data
-    argv[2] = "********** IN Process 1 **********";
+    argv[1] = "30000";                // size of data
+    argv[2] = "Process #1 ";
     argv[3] = NULL;
 //
     t = time(NULL);
@@ -28,8 +28,7 @@ int main(void) {
     printf("Driver PID: %d   Driver PPID: %d \n", p, pp);
     p = fork();
     if (p == 0) {
-        /* child */
-        printf("child");
+        printf("Child is running, processing 1.\n");
         execv("./main", argv);
     }
     if (p == 0) {
@@ -37,7 +36,35 @@ int main(void) {
     } else {
         printf("Driver after fork, parent: %d\n", p);
     }
-    sleep(10);
+
+
+
+    p = fork();
+    argv[2] = "Process #2 ";
+    if (p == 0) {
+        printf("Child is running, processing 2.\n");
+        execv("./main", argv);
+    }
+    if (p == 0) {
+        printf("Driver after fork, child 2: %d\n", p);
+    } else {
+        printf("Driver after fork, parent 2: %d\n", p);
+    }
+
+
+    p = fork();
+    argv[2] = "Process #3 ";
+    if (p == 0) {
+        printf("Child is running, processing 3.\n");
+        execv("./main", argv);
+    }
+    if (p == 0) {
+        printf("Driver after fork, child 3: %d\n", p);
+    } else {
+        printf("Driver after fork, parent 3: %d\n", p);
+    }
+
+//    sleep(10);
     t = time(NULL);
     printf("Driver Time again: %s\n", ctime(&t));
     exit(0);

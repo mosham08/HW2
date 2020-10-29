@@ -141,7 +141,6 @@ void printEarthquake(struct Earthquakes *earthquakes) {
 }
 
 int main() {
-
     char *earthquake_filename = "./all_month.csv";
     read_file(earthquake_filename);
     //////
